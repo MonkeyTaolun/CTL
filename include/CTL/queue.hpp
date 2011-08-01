@@ -26,16 +26,16 @@ public:
   bool    pop();
 
 
-  Queue(size_t size = 20);
+  Queue(const size_t size = 20);
   Queue(const T * const array, const size_t size);
   Queue<T>& operator= (const Queue<T> origin);
 
   ~Queue();
 
 private:
+  size_t    size;
   T       * array;
   size_t    length;
-  size_t    size;
   size_t    head;
 };
 
