@@ -1,2 +1,2 @@
-SET(CTL_LIB_SRC CTL/quicksort)
+SET(CTL_LIB_SRC CTL/quicksort CTL/mergesort CTL/stack)
 ADD_LIBRARY(CTL SHARED ${CTL_LIB_SRC})

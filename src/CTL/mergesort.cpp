@@ -17,7 +17,7 @@ void merge(T * const array, T * const helper, const int begin,
     if(index1 > mid || helper[index1 - start] > helper[index2 - start]) 
       array[i] = helper[index2++ - start];
     else if (index2 > end || helper[index1 - start] < helper[index2 - start])
-      array[i] = helper[index1++ - start]
+      array[i] = helper[index1++ - start];
   }
 }
 template <class T>
