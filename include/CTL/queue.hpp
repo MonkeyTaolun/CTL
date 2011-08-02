@@ -19,23 +19,21 @@ public:
   // @overload 
   size_t  getSize()                 const; 
   // @overload
-  bool    add(const T element);
-  
   bool    push(const T element);
-
+  // @overload
   bool    pop();
 
 
-  Queue(const size_t size = 20);
+  Queue(const size_t max_size = 20);
   Queue(const T * const array, const size_t size);
   Queue<T>& operator= (const Queue<T> origin);
 
   ~Queue();
 
 private:
-  size_t    size;
+  size_t    max_size;
   T       * array;
-  size_t    length;
+  size_t    size;
   size_t    head;
 };
 

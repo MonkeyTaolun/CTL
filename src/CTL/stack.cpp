@@ -4,48 +4,50 @@
 
 namespace CTL {
 template <class T>
-bool Stack<T>::isEmpty(){
-  return this->length == 0;
+bool Stack<T>::isEmpty() const{
+  return this->size == 0;
 }
 
 template <class T>
-bool Stack<T>::contains(const T element) {
-  for(int i = 0; i < this->length; ++i){
-    if(element == head[i]) return true;
+bool Stack<T>::contains(const T element) const {
+  for(size_t i = 0; i < this->size; ++i){
+    if(element == this->array[i]) return true;
   }
   return false;
 }
 
 template <class T>
-T * Stack<T>::toArray(){
-  T * copy = new T [this->length];
-  for(int i = 0; i < this->length; ++i){
-    copy[i] = head[i];
+T * Stack<T>::toArray() const {
+  T * copy = new T [this->size];
+  for(size_t i = 0; i < this->size; ++i){
+    copy[i] = this->array[i];
   }
   return copy;
 }
+
 template <class T>
-bool Stack<T>::add(const T element) {
-  return this->push(element);
+size_t Stack<T>::getSize() const {
+  return this->size;
 }
+
 template <class T>
 bool Stack<T>::pop() {
-  return this->length != 0 && this->length--;
+  return this->size != 0 && this->size--;
 }
 template <class T>
 bool Stack<T>::push(const T element) {
-  if(length == size) {
-    T * morespace = (T * )realloc(head, size * 2 *sizeof(T) );
+  if(this->length == this->max_size) {
+    T * morespace = (T * )realloc(array, this->max_size * 2 *sizeof(T) );
     if(morespace != NULL){
-      head = morespace;
-      size *= 2;
+      this->array = morespace;
+      this->max_size *= 2;
     }
     else {
-      free(head);
+      free(array);
       throw std::bad_alloc();
     }
   }
-  head[length++] = element;
+  this->array[this->size++] = element;
   return true;
 }
 /*
@@ -55,31 +57,31 @@ T& Stack::top(){
 }
 */
 template <class T>
-Stack<T>::Stack(size_t size){
-  this->head    = (T *)malloc(size * sizeof(T));
-  this->length  = 0;
-  this->size    = size;
+Stack<T>::Stack(size_t max_size){
+  this->array     = (T *)malloc(size * sizeof(T));
+  this->size      = 0;
+  this->max_size  = max_size;
 }
 template <class T>
 Stack<T>::Stack(const T * const array, const size_t size){
-  this->head    = (T *)malloc(size * 2 * sizeof(T));
+  this->array = (T *)malloc(size * 2 * sizeof(T));
   for(size_t i = 0; i < size; ++i){
-    head[i] = array[i];
+    this->array[i]  = array[i];
   }
-  this->length  = size;
-  this->size    = size * 2;
+  this->size      = size;
+  this->max_size  = size * 2;
 }
 template <class T>
 Stack<T>& Stack<T>::operator=(const Stack<T> origin){
-  if(this->head) free(this->head);
-  this->head    = (T *) malloc(origin.size * sizeof(T));
-  memcpy(this->head, origin.head, origin.length);
-  this->size    = origin.size;
-  this->length  = origin.length;
+  if(this->array) free(this->array);
+  this->head      = (T *) malloc(origin.max_size * sizeof(T));
+  memcpy(this->head, origin.array, origin.max_size);
+  this->size      = origin.size;
+  this->max_size  = origin.max_size;
 }
 template <class T>
 Stack<T>::~Stack<T>(){
-  free(this->head);
+  free(this->array);
 }
 
 } // end namespace std;
