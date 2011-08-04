@@ -31,9 +31,15 @@ size_t Stack<T>::getSize() const {
 }
 
 template <class T>
+void Stack<T>::clear(){
+  this->size  = 0;
+}
+
+template <class T>
 bool Stack<T>::pop() {
   return this->size != 0 && this->size--;
 }
+
 template <class T>
 bool Stack<T>::push(const T element) {
   if(this->length == this->max_size) {

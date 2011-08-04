@@ -19,6 +19,9 @@ public  :
   // @overload
   size_t  getSize()                 const;
   // @overload
+  void    clear();
+
+  // @overload
   bool    pop();
   // @overload
   bool    push(const T element);

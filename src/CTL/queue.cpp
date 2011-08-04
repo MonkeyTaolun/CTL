@@ -37,11 +37,6 @@ size_t Queue<T>::getSize() const{
 }
 
 template <class T>
-bool Queue<T>::add(const T element){
-  return this->push(element);
-}
-
-template <class T>
 bool Queue<T>::pop() {
   if(this->size != 0) {
     this->size--;
@@ -67,6 +62,12 @@ bool Queue<T>::push(const T element){
   }
   this->array[(this->head + (this->size++)) % this->max_size] = element;
   return true;
+}
+
+template <class T>
+void Queue<T>::clear(){
+  this->size  = 0;
+  this->head  = 0;
 }
 
 template <class T>

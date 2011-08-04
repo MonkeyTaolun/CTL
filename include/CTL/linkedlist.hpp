@@ -6,10 +6,10 @@
 namespace CTL {
   
 template <class T>
-struct node {
+struct Node {
   T   value;
-  struct node * next;
-  struct node(const T element) : value(element), next(NULL) {} 
+  struct Node * next;
+  struct Node(const T element) : value(element), next(NULL) {} 
 };
 
 template <class T>
@@ -27,21 +27,20 @@ public:
   bool          push(const T element);
   // @overload 
   bool          pop();
-  
-  struct node<T>  * const getHead() const ;
-  struct node<T>  * const getTail() const ;
+  // @overload 
+  void          clear();
+
+  struct Node<T>  * const getHead() const ;
   bool          remove(const T element);
   size_t        removeAll(const T element);
   
   LinkedList();
-  LinkedList(const T * const array, int size);
+  LinkedList(const T * const array, size_t size);
   LinkedList& operator=(const LinkedList & other);
   
   ~LinkedList();
 private:
-  struct node * head;
-  struct node * current;
-  int           size;
+  struct Node<T>  * head;
 };
 
 }

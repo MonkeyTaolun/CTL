@@ -12,6 +12,7 @@ public:
   virtual size_t  getSize()                 const = 0;
   virtual bool    push(const T element)           = 0;
   virtual bool    pop()                           = 0;
+  virtual void    clear()                         = 0;
   virtual ~Collection()                           = 0;
 };
 template <class T>

@@ -22,7 +22,8 @@ public:
   bool    push(const T element);
   // @overload
   bool    pop();
-
+  // @overload
+  void    clear();
 
   Queue(const size_t max_size = 20);
   Queue(const T * const array, const size_t size);
