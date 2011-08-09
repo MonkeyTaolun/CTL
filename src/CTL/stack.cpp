@@ -64,13 +64,13 @@ T& Stack::top(){
 */
 template <class T>
 Stack<T>::Stack(size_t max_size){
-  this->array     = (T *)malloc(size * sizeof(T));
+  this->array     = new T [size];
   this->size      = 0;
   this->max_size  = max_size;
 }
 template <class T>
 Stack<T>::Stack(const T * const array, const size_t size){
-  this->array = (T *)malloc(size * 2 * sizeof(T));
+  this->array = new T [size * 2];
   for(size_t i = 0; i < size; ++i){
     this->array[i]  = array[i];
   }
@@ -79,15 +79,15 @@ Stack<T>::Stack(const T * const array, const size_t size){
 }
 template <class T>
 Stack<T>& Stack<T>::operator=(const Stack<T> origin){
-  if(this->array) free(this->array);
-  this->head      = (T *) malloc(origin.max_size * sizeof(T));
+  if(this->array) delete [] this->array;
+  this->head      = new T [origin.max_size];
   memcpy(this->head, origin.array, origin.max_size);
   this->size      = origin.size;
   this->max_size  = origin.max_size;
 }
 template <class T>
 Stack<T>::~Stack<T>(){
-  free(this->array);
+  delete []this->array;
 }
 
 } // end namespace std;

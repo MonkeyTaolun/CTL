@@ -3,12 +3,10 @@
 
 #include <CTL/collection.hpp>
 
-#include <stdlib.h>
-
 namespace CTL {
 
 template <class T>
-class Queue : public Collection {
+class Queue : public Collection<T> {
 public:
   // @overload
   bool    isEmpty()                 const;

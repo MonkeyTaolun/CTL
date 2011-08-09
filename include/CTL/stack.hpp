@@ -1,14 +1,12 @@
 #ifndef _CTL_STACK_HPP_
 #define _CTL_STACK_HPP_
 
-#include<CTL/collection.hpp> 
-
-#include <stdlib.h>
+#include <CTL/collection.hpp> 
 
 namespace CTL {
 
 template <class T>
-class Stack{
+class Stack : public Collection<T> {
 public  :
   // @overload
   bool    isEmpty()                 const;

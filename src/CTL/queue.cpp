@@ -27,11 +27,6 @@ T * Queue<T>::toArray() const{
 }
 
 template <class T>
-size_t getSize() const {
-  return this->size;
-}
-
-template <class T>
 size_t Queue<T>::getSize() const{
   return this->size;
 }
@@ -73,7 +68,7 @@ void Queue<T>::clear(){
 template <class T>
 Queue<T>::Queue(const size_t max_size)
   : max_size(max_size),
-    array((T *) malloc(max_size * sizeof(T))),
+    array( new T [max_size]),
     size(0),
     head(0)
 {
@@ -85,7 +80,7 @@ Queue<T>::Queue(const size_t max_size)
 template <class T>
 Queue<T>::Queue(const T * const array, const size_t size)
   : max_size(size * 2),
-    array((T *) malloc(size * 2 * sizeof(T))),
+    array(new T [size * 2]),
     size(size),
     head(0)
 
@@ -97,8 +92,8 @@ Queue<T>::Queue(const T * const array, const size_t size)
 
 template <class T>
 Queue<T>& Queue<T>::operator=(const Queue<T> origin){
-  if(this->array) free(this->array);
-  this->array     = (T *) malloc(origin.max_size * sizeof(T));
+  if(this->array) delete [] this->array;
+  this->array     = new T [origin.max_size];
   memcpy(this->array, origin.array, origin.max_size);
   this->max_size  = origin.max_size;
   this->size      = origin.size;
@@ -107,7 +102,7 @@ Queue<T>& Queue<T>::operator=(const Queue<T> origin){
 
 template <class T>
 Queue<T>::~Queue(){
-  free(this->array);
+  delete [] this->array;
 }
 
 } // end of namespace CTL

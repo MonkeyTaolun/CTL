@@ -3,17 +3,18 @@
 
 #include <CTL/collection.hpp>
 
-namespace CTL {
-  
 template <class T>
 struct Node {
   T   value;
-  struct Node * next;
-  struct Node(const T element) : value(element), next(NULL) {} 
+  Node<T> * next;
+  Node(const T element) : value(element), next(NULL) {} 
 };
 
+
+namespace CTL {
+  
 template <class T>
-class LinkedList : public Collection {
+class LinkedList : public Collection<T> {
 public:
   // @overload
   bool          contains(const T element) const;
@@ -30,7 +31,7 @@ public:
   // @overload 
   void          clear();
 
-  struct Node<T>  * const getHead() const ;
+  ::Node<T>  * const getHead() const ;
   bool          remove(const T element);
   size_t        removeAll(const T element);
   
@@ -40,7 +41,7 @@ public:
   
   ~LinkedList();
 private:
-  struct Node<T>  * head;
+  ::Node<T>  * head;
 };
 
 }

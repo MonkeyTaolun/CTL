@@ -1,6 +1,8 @@
 #ifndef _CTL_COLLECTION_HPP_
 #define _CTL_COLLECTION_HPP_
 
+#include <string.h>
+
 namespace CTL {
 
 template <class T>

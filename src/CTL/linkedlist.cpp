@@ -4,7 +4,7 @@ namespace CTL {
 
 template <class T>
 bool LinkedList<T>::contains(const T element) const{
-  struct Node<T> * temp = this->head;
+  ::Node<T> * temp = this->head;
   while(temp){
     if(element == temp->value) return true;
     temp = temp->next;
@@ -18,12 +18,14 @@ bool LinkedList<T>::isEmpty() const {
 }
 
 template <class T>
-T * LinkedList::toArray() const {
+T * LinkedList<T>::toArray() const {
+  size_t size = this->getSize();
   T * copy = new T [this->size];
-  struct Node<T> * temp = this->head;
-  for(size_t i = 0; i < size; ++i){
-    copy[i] = temp->value;
-    temp    = temp->next;
+  ::Node<T> * temp = this->head;
+  size_t index  = 0;
+  while(temp != NULL){
+    copy[index++] = temp->value;
+    temp = temp->next;
   }
   return copy;
 }
@@ -31,21 +33,22 @@ T * LinkedList::toArray() const {
 template <class T>
 size_t LinkedList<T>::getSize() const {
   size_t size = 0;
-  struct Node<T>  * node = this->head;
+  ::Node<T>  * node = this->head;
   while(node){
     size++;
     node  = node->next;
   }
+  return size;
 }
 
 template <class T>
 bool LinkedList<T>::push(const T element) {
-  struct Node<T> * node_new = new Node<T>(element);
+  ::Node<T> * node_new = new ::Node<T>(element);
   if(!this->head) {
     this->head  = node_new;
     return true;
   }
-  struct Node<T> * node = this->head;
+  ::Node<T> * node = this->head;
   while(node->next){
     node  = node->next;
   }
@@ -56,7 +59,7 @@ bool LinkedList<T>::push(const T element) {
 template <class T>
 bool LinkedList<T>::pop(){
   if(!this->head) return false;
-  struct Node<T> * node  = this->head;
+  ::Node<T> * node  = this->head;
   this->head = this->head->next;
   delete node;
   return true;
@@ -68,7 +71,7 @@ void LinkedList<T>::clear(){
 }
 
 template <class T>
-struct node<T> * const LinkedList<T>::getHead() const {
+struct Node<T> * const LinkedList<T>::getHead() const {
   return this->head;
 }
 
@@ -79,8 +82,8 @@ bool LinkedList<T>::remove(const T element){
     this->head = this->head->next;
     return true;
   }
-  struct Node<T> * temp1  = this->head;
-  struct Node<T> * temp2  = this->head->next;
+  ::Node<T> * temp1  = this->head;
+  ::Node<T> * temp2  = this->head->next;
   while(temp2){
     if(element == temp2->value) {
       temp1->next = temp2->next;
@@ -109,10 +112,10 @@ LinkedList<T>::LinkedList(const T * const array, size_t size){
     this->head  = NULL;
     return;
   }
-  this->head = new Node <T> (array[0]);
-  struct Node <T> * node;
+  this->head = new ::Node <T> (array[0]);
+  ::Node <T> * node;
   for(size_t i = 1; i < size; ++i){
-    node->next  = new Node <T> (array[i]);
+    node->next  = new ::Node <T> (array[i]);
     node  = node->next;
   }
 }
@@ -121,14 +124,14 @@ template <class T>
 LinkedList<T>& LinkedList<T>::operator=(const LinkedList & other){
   this->clear();
   if(other->head) {
-    this->head = new Node <T> (other->head->value);
+    this->head = new ::Node <T> (other->head->value);
   }
   else return;
-  struct Node <T> * node1 = this->head;
-  struct Node <T> * node2 = NULL;
-  struct Node <T> * node3 = other->head->next;
+  ::Node <T> * node1 = this->head;
+  ::Node <T> * node2 = NULL;
+  ::Node <T> * node3 = other->head->next;
   while(node3){
-    node2 = new Node <T> (node1->value);
+    node2 = new ::Node <T> (node1->value);
     node1->next = node2;
     node1 = node2;
     // node1 = node1->next = node2;
