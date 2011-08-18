@@ -3,16 +3,16 @@
 
 #include <CTL/collection.hpp>
 
+namespace CTL {
+ 
 template <class T>
-struct Node {
+struct SingleListNode {
   T   value;
-  Node<T> * next;
-  Node(const T element) : value(element), next(NULL) {} 
+  SingleListNode<T> * next;
+  SingleListNode(const T element) : value(element), next(NULL) {} 
 };
 
-
-namespace CTL {
-  
+ 
 template <class T>
 class LinkedList : public Collection<T> {
 public:
@@ -31,7 +31,7 @@ public:
   // @overload 
   void          clear();
 
-  ::Node<T>  * const getHead() const ;
+  SingleListNode<T>  * const getHead() const ;
   bool          remove(const T element);
   size_t        removeAll(const T element);
   
@@ -41,7 +41,7 @@ public:
   
   ~LinkedList();
 private:
-  ::Node<T>  * head;
+  SingleListNode<T>  * head;
 };
 
 }
