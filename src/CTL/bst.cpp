@@ -1,5 +1,8 @@
 #include <CTL/bst.hpp>
 
+#include <iostream>
+#include <vector>
+
 namespace CTL {
 
 template <class T>
@@ -79,14 +82,12 @@ bool  BST<T>::push(const T element){
       if(temp->right) temp  = temp->right;
       else {
         temp->right = new TreeNode<T>(element);
-        temp->right->parent = temp;
       }
     }
     else {
       if(temp->left) temp   = temp->left;
       else {
         temp->left  = new TreeNode<T> (element);
-        temp->left->parent  = temp;
       }
     }
   }
@@ -100,17 +101,17 @@ bool BST<T>::pop(){
 }
 
 template <class T>
-void BST<T>::removeNode(TreeNode<T> * node){
+void BST<T>::removeSubTree(TreeNode<T> * node){
   if(!node) return;
-  this->removeNode(node->left);
-  this->removeNode(node->right);
+  this->removeSubTree(node->left);
+  this->removeSubTree(node->right);
   delete node;
   node  = NULL;
 }
 
 template <class T>
 bool BST<T>::clear(){ 
-  this->removeNode(this->root);
+  this->removeSubTree(this->root);
 }
 
 // need to be discuss
@@ -134,4 +135,86 @@ T BST<T>::getMin() const {
   return NULL;
 }
 
+template <class T>
+void BST<T>::removeNode(TreeNode<T> * node, TreeNode<T> * parent){
+   
 }
+
+// to be implement
+template <class T>
+bool BST<T>::remove(const T element){
+  if(NULL == this->root) return false;
+  TreeNode<T> * node  = this->root;
+  if(element == node->item) {
+    removeNode(node, NULL);
+    return true;
+  }
+  TreeNode<T> * parent  = this->root;
+  do{
+    if(element > parent->item) node = parent->item;
+    if(element < parent->item)
+  }while()
+  while(node != NULL && element != node->item){
+    if(element > node->item)  node  = node->right;
+    if(element < node->item)  node  = node->left;
+  }
+  // find it in BST
+  if(node != NULL)  {
+    /*
+    TreeNode<T> * father = node->parent;
+    if(!node->left && !node->right){
+      if(father->left == node){
+        father->left = NULL;
+      }
+      else father->right = NULL;
+      delete node;
+    }
+    else if(node->left&&node->right == NULL){
+      
+    }
+    if(node->left && node->right){
+    
+    }
+    */
+  }
+
+  return false; 
+}
+
+template <class T>
+void printByLevel() const {
+  if(!this->root) return ;
+  std::vector <TreeNode *> vec[2];
+  int flag  = 0;
+  vec[0].push_back(this->root);
+  TreeNode <T> * temp;
+  while(!vec[flag].isEmpty()){
+    int next  = (flag + 1) % 2;
+    for( size_t i = 0; i < vec[flag].size; ++i){
+      temp  = vec[flag][i];  
+      std::cout << temp->item << " ";
+      if(temp->left)  vec[next].push_back(temp->left);
+      if(temp->right) vec[next].push_back(temp->right);
+    }
+    flag = next;
+  }
+}
+
+template <class T>
+void BST<T>::inorderPrint(const TreeNode <T>  * const node) const {
+  if(!node) return;
+  this->inorderPrint(node->left);
+  std::cout << node->item << " ";
+  this->inorderPrint(node->right);
+}
+
+
+template <class T>
+void BST<T>::inorderTravel() const {
+  this->inorderPrint(this->root); 
+}
+// to be implement
+template <class T>
+void BST<T>::join(BST<T> other);
+
+} // end of namespace CTL

@@ -10,7 +10,6 @@ struct TreeNode {
   T   item;
   TreeNode<T>   * left;
   TreeNode<T>   * right;
-  TreeNode<T>   * parent;
   TreeNode(const T item) 
     : item(item), left(NULL), right(NULL), parent(NULL) {}
 }; 
@@ -37,9 +36,8 @@ public:
   T       getMax()  const;
   T       getMin()  const;
   bool    remove(const T element);
+  void    inorderPrint() const;
   void    inorderTravel() const;
-  void    perorderTravel() const;
-  void    posorderTravel() const;
 
   void    printByLevel()  const;
   void    join(BST<T> other);
@@ -50,9 +48,14 @@ public:
   ~BST();
 
 private:
-  void copy2Array(const T * array, const TreeNode<T> * node, size_t &index) const; 
-  void removeNode(TreeNode<T> * node);
-  
+  void copy2Array(
+      const T * array, 
+      const TreeNode<T> * node, 
+      size_t &index
+  ) const; 
+  void removeNode(TreeNode<T> * node, TreeNode<T> * parent);
+  void removeSubTree(TreeNode<T> * node);
+   
   TreeNode<T> * root;
   size_t        size;
 };
